@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록</title>
+</head>
+<body>
+    <h1>게시글 목록</h1>
+
+    <a href="/board/insert">글쓰기</a>
+    <table border="1">
+        <tr>
+            <td width="50">번호</td>
+            <td width="200">제목</td>
+            <td width="100">작성자</td>
+            <td width="100">등록일자</td>
+            <td width="100">수정일자</td>
+            <td width="50">조회수</td>
+            
+            
+        </tr>
+        <th:block th:if="${boardList.isEmpty()}">
+            <tr>
+                <td colspan="6" align="center">조회된 게시글이 없습니다.</td>
+            </tr>
+        </th:block>
+
+        <th:block th:each="board : ${boardList}">
+            <tr>
+                <td align="center" th:text="${board.no}"></td>
+                <td>
+                    <a th:href="|/board/read?no=${board.no}|" th:text="${board.title}"></a>
+                </td>
+                <td align="center" th:text="${board.writer}"></td>
+                <td align="center">
+                    <span th:text="${#dates.format (board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                </td> 
+                <td align="center">
+                    <span th:text="${#dates.format (board.updDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                </td> 
+                <td align="center" th:text="${board.views}"></td>
+            </tr>
+        </th:block>
+
+
+    
+        
+    </table>
+</body>
+</html>
